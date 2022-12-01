@@ -1,29 +1,72 @@
-import './App.css';
+import React, { useState } from 'react';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src="Octocat.png" className="App-logo" alt="logo" />
-        <p>
-          GitHub Codespaces <span className="heart">♥️</span> React
-        </p>
-        <p className="small">
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </p>
-      </header>
-    </div>
-  );
+export default function App() {
+	const [currentQuestion, setCurrentQuestion] = useState(1);
+	const questions = [
+		{
+			questionText: 'What is the capital of France?',
+			answerOptions: [
+				{ answerText: 'New York', isCorrect: false },
+				{ answerText: 'London', isCorrect: false },
+				{ answerText: 'Paris', isCorrect: true },
+				{ answerText: 'Dublin', isCorrect: false },
+			],
+		},
+		{
+			questionText: 'Who is CEO of Tesla?',
+			answerOptions: [
+				{ answerText: 'Jeff Bezos', isCorrect: false },
+				{ answerText: 'Elon Musk', isCorrect: true },
+				{ answerText: 'Bill Gates', isCorrect: false },
+				{ answerText: 'Tony Stark', isCorrect: false },
+			],
+		},
+		{
+			questionText: 'The iPhone was created by which company?',
+			answerOptions: [
+				{ answerText: 'Apple', isCorrect: true },
+				{ answerText: 'Intel', isCorrect: false },
+				{ answerText: 'Amazon', isCorrect: false },
+				{ answerText: 'Microsoft', isCorrect: false },
+			],
+		},
+		{
+			questionText: 'How many Harry Potter books are there?',
+			answerOptions: [
+				{ answerText: '1', isCorrect: false },
+				{ answerText: '4', isCorrect: false },
+				{ answerText: '6', isCorrect: false },
+				{ answerText: '7', isCorrect: true },
+			],
+		},
+	];
+
+	const handleAnswerButtonClick = (answerOption) => {
+		const nextQuestion = currentQuestion + 1;
+		setCurrentQuestion(nextQuestion);
+	};
+
+	return (
+		<div className='app'>
+			{/* HINT: replace "false" with logic to display the 
+      score when the user has answered all the questions */}
+			{false ? (
+				<div className='score-section'>You scored 1 out of {questions.length}</div>
+			) : (
+				<>
+					<div className='question-section'>
+						<div className='question-count'>
+							<span>Question 1</span>/{questions.length}
+						</div>
+						<div className='question-text'>{questions[currentQuestion].questionText}</div>
+					</div>
+					<div className='answer-section'>
+					{questions[currentQuestion].answerOptions.map((answerOption, index) => (
+					<button onClick={() => handleAnswerButtonClick()}>{answerOption.answerText}</button>
+					))}
+					</div>
+				</>
+			)}
+		</div>
+	);
 }
-
-export default App;
