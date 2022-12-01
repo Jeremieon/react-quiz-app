@@ -43,19 +43,18 @@ export default function App() {
 		},
 	];
 
-	const handleAnswerButtonClick = (isCorrect) => {
+	const handleAnswerOptionClick = (isCorrect) => {
 		if (isCorrect) {
 			setScore(score + 1);
 		}
+
 		const nextQuestion = currentQuestion + 1;
-		//setCurrentQuestion(nextQuestion);
 		if (nextQuestion < questions.length) {
 			setCurrentQuestion(nextQuestion);
 		} else {
-			alert('you reached the end of the quiz');
+			setShowScore(true);
 		}
 	};
-
 	return (
 		<div className='app'>
 			{/* HINT: replace "false" with logic to display the 
@@ -67,14 +66,14 @@ export default function App() {
 			) : (
 				<>
 					<div className='question-section'>
-						<div className='question-count'>
-							<span>Question 1</span>/{questions.length}
-						</div>
+					<div className='question-count'>
+					<span>Question {currentQuestion + 1}</span>/{questions.length}
+</div>
 						<div className='question-text'>{questions[currentQuestion].questionText}</div>
 					</div>
 					<div className='answer-section'>
 					{questions[currentQuestion].answerOptions.map((answerOption, index) => (
-					<button onClick={() => handleAnswerButtonClick(answerOption.isCorrect)}>{answerOption.answerText}</button>
+					<button onClick={() => handleAnswerOptionClick(answerOption.isCorrect)}>{answerOption.answerText}</button>
 					))}
 					</div>
 				</>
